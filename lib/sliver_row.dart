@@ -23,13 +23,19 @@ class SliverRow extends StatelessWidget {
         crossAxisAlignment: this.crossAxisAlignment,
         children: [
           for (var child in children)
-            child.rowBuilder(
-              context,
+            if (child.rowBuilder != null)
+              child.rowBuilder(
+                context,
+                ShrinkWrappingViewport(
+                  slivers: child.slivers,
+                  offset: ViewportOffset.zero(),
+                ),
+              )
+            else
               ShrinkWrappingViewport(
                 slivers: child.slivers,
                 offset: ViewportOffset.zero(),
               ),
-            ),
         ],
       ),
     );
@@ -40,11 +46,7 @@ class SliverRowChildDelegate {
   final List<Widget> slivers;
   final RenderRow rowBuilder;
 
-  SliverRowChildDelegate(this.slivers, {this.rowBuilder = _defaultRowBuilder});
-
-  static Widget _defaultRowBuilder(BuildContext context, Widget row) {
-    return row;
-  }
+  SliverRowChildDelegate(this.slivers, {this.rowBuilder});
 }
 
-typedef RenderRow = Widget Function(BuildContext context, Widget row);
+typedef RenderRow = Widget Function(BuildContext context, Widget child);
