@@ -1,8 +1,7 @@
 name: sliver_row
 description: Adapter for Row to be used on CustomScrollView
 version: 0.0.1
-author:
-homepage:
+homepage: https://github.com/mastito03/sliver_row
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
